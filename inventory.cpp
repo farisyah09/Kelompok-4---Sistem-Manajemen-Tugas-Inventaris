@@ -26,11 +26,11 @@ void inventoryManagementMenu() {
         cout << "2. Get list inventory\n";
         cout << "3. Back\n";
         cout << "Enter your choice: ";
-
-        if (!(cin >> choice)) {
+        cin >> choice;
+        if (cin.fail()) {
+            cout << "Invalid input. Please enter a valid number." << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Invalid input. Please enter a number between 1 and 3.\n";
             continue;
         }
 
