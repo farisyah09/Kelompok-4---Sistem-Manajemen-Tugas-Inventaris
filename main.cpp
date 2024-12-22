@@ -18,6 +18,9 @@ void adminMenu() {
             case 1:
                 taskManagementMenu();
                 break;
+            case 2:
+                InventoryManagementMenu();
+                break;                
         }
     } while (choice != 3);
 }
