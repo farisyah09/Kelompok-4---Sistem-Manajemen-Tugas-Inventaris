@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "taskManagement.h"
+#include "inventory.h"
 #include "utils.h"
 #include <limits>
 
@@ -24,7 +25,10 @@ void adminMenu() {
         switch (choice) {
             case 1:
                 taskManagementMenu();
-                break;            
+                break; 
+            case 2:
+                inventoryManagementMenu();
+                break;                            
         }
     } while (choice != 3);
 }
