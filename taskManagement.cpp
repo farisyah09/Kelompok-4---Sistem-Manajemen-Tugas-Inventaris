@@ -1,6 +1,7 @@
 #include "taskManagement.h"
 #include "utils.h"
 #include <iostream>
+#include <limits>
 
 int TaskManagement::id_counter = 0;
 
@@ -8,11 +9,12 @@ int TaskManagement::id_counter = 0;
 vector<TaskManagement> tasks = {
     TaskManagement("Pemasangan CCTV", "Pemasangan CCTV di PT.Sahabat Lama", "2024-12-30", "normal", "New", ""),
     TaskManagement("Perbaikan DVR", "Perbaikan VR di PT.Mentari Bersinar", "2024-12-25", "urgent", "New", ""),
-    TaskManagement("Perbaikan DVR", "Perbaikan DVR di PT.Bulan Merah", "2024-12-27", "urgent", "In Progress", "")
+    TaskManagement("Perbaikan DVR", "Perbaikan DVR di PT.Bulan Merah", "2024-12-27", "urgent", "In-Progress", "")
 };
 
 void taskManagementMenu() {
     int choice;
+    string input;
     clearScreen();
     do {
         cout << "\n=== Task Management ===\n";
@@ -22,7 +24,12 @@ void taskManagementMenu() {
         cout << "4. Back\n";
         cout << "Enter your choice: ";
         cin >> choice;
-        cin.ignore();
+        if (cin.fail()) {
+            cout << "Invalid input. Please enter a valid number." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
 
         switch (choice) {
             case 1:
@@ -118,7 +125,6 @@ void assignTask(vector<TaskManagement>& tasks) {
 
 void displayTasks(const vector<TaskManagement>& tasks) {
     cout << "\n=== Task List ===\n";
-    
     for (const auto& task : tasks) {
         cout << "Task ID: " << task.id << ", Title: " << task.title << ", Description: " << task.description << ", Deadline: " << task.deadline << ", Priority: " << task.priority << ", Status: " << task.status << ", Technician: " << task.technician << endl;
     }
@@ -134,7 +140,8 @@ void getDetailsTask(const vector<TaskManagement>& tasks) {
 
     string status;
     bool task_found = false;
-    cout << "Get the details task by status (New/In Progress/Done): ";
+
+    cout << "Get the details task by status (New/In-Progress/Done) or type 'All' to get all tasks: ";
     cin >> status;
 
     if (status.empty()) {
@@ -142,16 +149,20 @@ void getDetailsTask(const vector<TaskManagement>& tasks) {
         return;
     }
     
-    cout << "\n=== Task List ===\n";
-    for (const auto& task : tasks) {
-        if (task.status == status) {
-            task_found = true;
-            cout << "Task ID: " << task.id << ", Title: " << task.title << ", Description: " << task.description << ", Deadline: " << task.deadline << ", Priority: " << task.priority << ", Status: " << task.status << ", Technician: " << task.technician << endl;
+    if (status == "All") {
+        task_found = true;
+        displayTasks(tasks);
+    } else {
+        cout << "\n=== Task List ===\n";
+        for (const auto& task : tasks) {
+            if (task.status == status) {
+                task_found = true;
+                cout << "Task ID: " << task.id << ", Title: " << task.title << ", Description: " << task.description << ", Deadline: " << task.deadline << ", Priority: " << task.priority << ", Status: " << task.status << ", Technician: " << task.technician << endl;
+            }
         }
     }
 
     if (!task_found) {
         cout << "No tasks found with status: " << status << endl;
     }
-
 }

@@ -2,6 +2,7 @@
 #include <vector>
 #include "taskManagement.h"
 #include "utils.h"
+#include <limits>
 
 void adminMenu() {
     int choice;
@@ -11,8 +12,14 @@ void adminMenu() {
         cout << "1. Task Management\n";
         cout << "2. Inventory Management\n";
         cout << "3. Exit\n";
-        cout << "Select an option:: ";
+        cout << "Select an option: ";
         cin >> choice;
+        if (cin.fail()) {
+            cout << "Invalid input. Please enter a valid number." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        } 
 
         switch (choice) {
             case 1:
@@ -30,7 +37,13 @@ void technicianMenu() {
         cout << "1. Task Operation:\n";
         cout << "2. Keluar\n";
         cout << "Select an option:: ";
-        cin >> choice;       
+        cin >> choice;
+        if (cin.fail()) {
+            cout << "Invalid input. Please enter a valid number." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }     
 
     } while (choice != 2);
 }
@@ -45,6 +58,12 @@ int main() {
         cout << "3. Exit\n";
         cout << "Select an option: ";
         cin >> choice;
+        if (cin.fail()) {
+            cout << "Invalid input. Please enter a valid number." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
 
         switch (choice) {
             case 1:

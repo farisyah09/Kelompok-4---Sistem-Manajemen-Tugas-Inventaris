@@ -18,8 +18,7 @@ public:
     string status;
     string technician;
 
-    TaskManagement(string t, string d, string dl, string p, string st, string tech)
-        : title(t), description(d), deadline(dl), priority(p), status(st), technician(tech) {
+    TaskManagement(string t, string d, string dl, string p, string st, string tech) : title(t), description(d), deadline(dl), priority(p), status(st), technician(tech) { 
         id = ++id_counter;
     }
 };
