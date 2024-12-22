@@ -34,7 +34,6 @@ void inventoryManagementMenu() {
             continue;
         }
 
-        cin.ignore();
         switch (choice) {
             case 1:
                 addNewInventory(inventory);
