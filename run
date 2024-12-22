@@ -1,0 +1,2 @@
+#!/bin/bash
+g++ main.cpp taskManagement.cpp utils.cpp   -o service

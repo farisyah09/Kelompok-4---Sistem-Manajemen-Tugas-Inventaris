@@ -17,10 +17,7 @@ void adminMenu() {
         switch (choice) {
             case 1:
                 taskManagementMenu();
-                break;
-            case 2:
-                InventoryManagementMenu();
-                break;                
+                break;            
         }
     } while (choice != 3);
 }
@@ -33,12 +30,7 @@ void technicianMenu() {
         cout << "1. Task Operation:\n";
         cout << "2. Keluar\n";
         cout << "Select an option:: ";
-        cin >> choice;
-        switch (choice) {
-            case 1:
-                ToolUsage();
-                break;
-        }        
+        cin >> choice;       
 
     } while (choice != 2);
 }
@@ -51,7 +43,7 @@ int main() {
         cout << "1. Login as Admin\n";
         cout << "2. Login as Technician\n";
         cout << "3. Exit\n";
-        cout << "Select an option:: ";
+        cout << "Select an option: ";
         cin >> choice;
 
         switch (choice) {
