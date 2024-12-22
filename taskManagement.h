@@ -29,6 +29,6 @@ void assignTask(vector<TaskManagement>& tasks);
 void displayTasks(const vector<TaskManagement>& tasks);
 void getDetailsTask(const vector<TaskManagement>& tasks);
 
-extern std::vector<TaskManagement> tasks;
+extern vector<TaskManagement> tasks;
 
 #endif

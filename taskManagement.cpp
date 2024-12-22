@@ -7,9 +7,9 @@ int TaskManagement::id_counter = 0;
 
 // vector<TaskManagement> tasks;
 vector<TaskManagement> tasks = {
-    TaskManagement("Pemasangan CCTV", "Pemasangan CCTV di PT.Sahabat Lama", "2024-12-30", "normal", "New", ""),
-    TaskManagement("Perbaikan DVR", "Perbaikan VR di PT.Mentari Bersinar", "2024-12-25", "urgent", "New", ""),
-    TaskManagement("Perbaikan DVR", "Perbaikan DVR di PT.Bulan Merah", "2024-12-27", "urgent", "In-Progress", "")
+    TaskManagement("Pemasangan CCTV", "Pemasangan CCTV di PT.Sahabat Lama", "2024-12-30", "normal", "New", "Ali"),
+    TaskManagement("Perbaikan DVR", "Perbaikan VR di PT.Mentari Bersinar", "2024-12-25", "urgent", "New", "Jamal"),
+    TaskManagement("Perbaikan DVR", "Perbaikan DVR di PT.Bulan Merah", "2024-12-27", "urgent", "In-Progress", "Rohit")
 };
 
 void taskManagementMenu() {
