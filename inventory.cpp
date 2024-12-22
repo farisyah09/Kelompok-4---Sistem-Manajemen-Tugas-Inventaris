@@ -6,14 +6,14 @@
 int InventoryManagement::id_counter = 0;
 
 vector<InventoryManagement> inventory = {
-    InventoryManagement("CCTV001", "CCTV Camera", "10", "Available", "Supplies"),
-    InventoryManagement("DVR002", "DVR", "5", "In-Use", "Supplies"),
-    InventoryManagement("CCTV003", "CCTV Power Supply", "20", "Available", "Supplies"),
-    InventoryManagement("CCTV005", "CCTV Cable (Coaxial)", "30", "Available", "Supplies"),
-    InventoryManagement("CCTV006", "CCTV Monitor", "8", "Available", "Supplies"),
-    InventoryManagement("Ladder001", "Tangga", "5", "Available", "Tools"),
-    InventoryManagement("Wrench001", "Kunci pas", "10", "Available", "Tools"),
-    InventoryManagement("Drill001", "Bor", "7", "Available", "Tools")    
+    InventoryManagement("CCTV001", "CCTV Camera", 10, "Available", "Supplies"),
+    InventoryManagement("DVR002", "DVR", 5, "In-Use", "Supplies"),
+    InventoryManagement("CCTV003", "CCTV Power Supply", 20, "Available", "Supplies"),
+    InventoryManagement("CCTV005", "CCTV Cable (Coaxial)", 30, "Available", "Supplies"),
+    InventoryManagement("CCTV006", "CCTV Monitor", 8, "Available", "Supplies"),
+    InventoryManagement("Ladder001", "Tangga", 5, "Available", "Tools"),
+    InventoryManagement("Wrench001", "Kunci pas", 10, "Available", "Tools"),
+    InventoryManagement("Drill001", "Bor", 7, "Available", "Tools")    
 };
 
 
@@ -53,7 +53,8 @@ void inventoryManagementMenu() {
 }
 
 void addNewInventory(vector<InventoryManagement>& inventory) {
-    string item_code, item_name, quantity, status, category;
+    string item_code, item_name, status, category;
+    int quantity;
 
     cout << "Enter item code: ";
     getline(cin, item_code);
@@ -63,17 +64,17 @@ void addNewInventory(vector<InventoryManagement>& inventory) {
         if (item.item_code == item_code) {
             found = true;
             cout << "Item found: " << item.item_name << " (Current quantity: " << item.quantity << ")\n";
-            cout << "Enter additional quantity to add: ";
-            string additional_quantity;
-            getline(cin, additional_quantity);
+            cout << "Enter quantity to add: ";
 
-            try {
-                int new_quantity = stoi(item.quantity) + stoi(additional_quantity);
-                item.quantity = to_string(new_quantity);
-                cout << "Quantity updated successfully! New quantity: " << item.quantity << "\n";
-            } catch (const invalid_argument&) {
-                cout << "Invalid quantity entered. Update failed.\n";
+            if (!(cin >> quantity)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid quantity entered. Update failed." << endl;
+                return;
             }
+
+            item.quantity += quantity;
+            cout << "Quantity updated successfully! New quantity: " << item.quantity << endl;            
             break;
         }
     }
@@ -83,7 +84,12 @@ void addNewInventory(vector<InventoryManagement>& inventory) {
         getline(cin, item_name);
 
         cout << "Enter quantity: ";
-        getline(cin, quantity);
+        if (!(cin >> quantity)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid quantity entered. Update failed." << endl;
+            return;
+        }
 
         status = "Available";
 

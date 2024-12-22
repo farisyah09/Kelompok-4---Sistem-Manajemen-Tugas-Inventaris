@@ -13,11 +13,11 @@ public:
     int id;
     string item_code;
     string item_name;
-    string quantity;
+    int quantity;
     string status;
     string category;
 
-    InventoryManagement(string item_code, string item_name, string quantity, string status, string category) : item_code(item_code), item_name(item_name), quantity(quantity), status(status), category(category) { 
+    InventoryManagement(string item_code, string item_name, int quantity, string status, string category) : item_code(item_code), item_name(item_name), quantity(quantity), status(status), category(category) { 
         id = ++id_counter;
     }
 };
