@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <cstdlib>
+#include <algorithm>
 
 using namespace std;
 
@@ -17,6 +17,38 @@ const int MAX_TASKS = 100;
 string taskManagement[MAX_TASKS][6];
 int taskCount = 0;
 
+bool isNumeric(string str) {
+    for (char ch : str) {
+        if (ch < '0' || ch > '9') {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isValidDate(string date) {
+    string year, month, day;
+    if (date.length() != 10 || date[4] != '-' || date[7] != '-') return false;
+    for (int i = 0; i < date.length(); ++i) {
+        if (i < 4) {
+            year += date[i];
+        } else if (i > 4 && i < 7) {
+            month += date[i];
+        } else if (i > 7) {
+            day += date[i];
+        }
+    }
+
+    if (!isNumeric(year) || !isNumeric(month) || !isNumeric(day)) {
+        return false;
+    }
+
+    if (month < "01" || month > "12") return false;
+    if (day < "01" || day > "31") return false;
+
+    return true;
+}
+
 void addNewTask() {
     if (taskCount >= MAX_TASKS) {
         cout << "ERROR: Task list is full!" << endl;
@@ -24,23 +56,48 @@ void addNewTask() {
     }
 
     cin.ignore();
-    cout << "Enter task title: ";
-    getline(cin, taskManagement[taskCount][0]);
 
-    cout << "Enter task description: ";
-    getline(cin, taskManagement[taskCount][1]);
+    do {
+        cout << "Enter task title: ";
+        getline(cin, taskManagement[taskCount][0]);
+        if (taskManagement[taskCount][0].empty()) {
+            cout << "Task title cannot be empty. Please try again." << endl;
+        }
+    } while (taskManagement[taskCount][0].empty());
 
-    cout << "Enter task deadline (YYYY-MM-DD): ";
-    getline(cin, taskManagement[taskCount][2]);
+    do {
+        cout << "Enter task description: ";
+        getline(cin, taskManagement[taskCount][1]);
+        if (taskManagement[taskCount][1].empty()) {
+            cout << "Task description cannot be empty. Please try again." << endl;
+        }
+    } while (taskManagement[taskCount][1].empty());
 
-    cout << "Enter task priority (normal/urgent): ";
-    getline(cin, taskManagement[taskCount][3]);
+    do {
+        cout << "Enter task deadline (YYYY-MM-DD): ";
+        getline(cin, taskManagement[taskCount][2]);
+        if (!isValidDate(taskManagement[taskCount][2])) {
+            cout << "Invalid date format. Please use YYYY-MM-DD." << endl;
+        }
+    } while (!isValidDate(taskManagement[taskCount][2]));
 
-    cout << "Enter task status: ";
-    getline(cin, taskManagement[taskCount][4]);
+    do {
+        cout << "Enter task priority (normal/urgent): ";
+        getline(cin, taskManagement[taskCount][3]);
+        if (taskManagement[taskCount][3] != "normal" && taskManagement[taskCount][3] != "urgent") {
+            cout << "Invalid task priority. Please enter 'normal' or 'urgent'." << endl;
+        }
+    } while (taskManagement[taskCount][3] != "normal" && taskManagement[taskCount][3] != "urgent");
 
-    cout << "Enter technician name: ";
-    getline(cin, taskManagement[taskCount][5]);
+    taskManagement[taskCount][4] = "New";
+
+    do {
+        cout << "Enter technician name: ";
+        getline(cin, taskManagement[taskCount][5]);
+        if (taskManagement[taskCount][5].empty()) {
+            cout << "Technician name cannot be empty. Please try again." << endl;
+        }
+    } while (taskManagement[taskCount][5].empty());
 
     taskCount++;
     cout << "Task added successfully!" << endl;
