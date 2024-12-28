@@ -26,6 +26,9 @@ bool isNumeric(string str) {
     return true;
 }
 
+
+
+
 bool isValidDate(string date) {
     string year, month, day;
     if (date.length() != 10 || date[4] != '-' || date[7] != '-') return false;
